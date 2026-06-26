@@ -9,5 +9,5 @@ podman run -d                           \
     -p 3478:3478/udp                    \
     -v /root/derper-certs:/derper-certs \
     -e DERPER_HOST="<Your Server IP>"   \
-    ghcr.io/gszj2018/derper-docker-ip:v1.0
+    ghcr.io/gszj2018/derper-docker-ip:latest
 ```
