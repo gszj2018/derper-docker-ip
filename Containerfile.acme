@@ -1,0 +1,27 @@
+# build
+FROM golang:alpine AS build
+RUN apk add --no-cache git ca-certificates
+RUN go install tailscale.com/cmd/derper@latest
+
+# deploy
+FROM alpine:latest
+COPY --from=build /go/bin/derper /derper
+
+# ports
+EXPOSE 80
+EXPOSE 443
+EXPOSE 3478/udp
+
+# volumes
+VOLUME /derper-certs
+
+# environments
+ENV DERPER_HOST=127.0.0.1
+ENV DERPER_EXTRA_AGRS=""
+
+# command
+CMD /derper \
+    -acme-ip-certs \
+    -certmode letsencrypt \
+    -certdir /derper-certs \
+    -hostname ${DERPER_HOST} ${DERPER_EXTRA_ARGS}
