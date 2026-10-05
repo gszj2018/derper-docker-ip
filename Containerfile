@@ -16,7 +16,7 @@ VOLUME /derper-certs
 
 # environments
 ENV DERPER_HOST=127.0.0.1
-ENV DERPER_EXTRA_AGRS=""
+ENV DERPER_EXTRA_ARGS=""
 
 # command
 CMD /derper \
