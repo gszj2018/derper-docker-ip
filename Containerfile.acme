@@ -1,7 +1,9 @@
 # build
 FROM golang:alpine AS build
 RUN apk add --no-cache git ca-certificates
-RUN go install tailscale.com/cmd/derper@latest
+RUN git clone --branch derper-ip-cert-nat --single-branch \
+       https://github.com/gszj2018/tailscale-derper-ip-cert-nat.git /src/derper
+RUN cd /src/derper && go install ./cmd/derper
 
 # deploy
 FROM alpine:latest
